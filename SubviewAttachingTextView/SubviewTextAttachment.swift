@@ -63,20 +63,21 @@ open class SubviewTextAttachment: NSTextAttachment {
 
 // MARK: - Internal view provider
 
-final internal class DirectTextAttachedViewProvider: TextAttachedViewProvider {
+final public class DirectTextAttachedViewProvider: TextAttachedViewProvider {
 
-    let view: UIView
+    public let view: UIView
 
     init(view: UIView) {
         self.view = view
     }
 
-    func instantiateView(for attachment: SubviewTextAttachment, in behavior: SubviewAttachingTextViewBehavior) -> UIView {
+    public func instantiateView(for attachment: SubviewTextAttachment, in behavior: SubviewAttachingTextViewBehavior) -> UIView {
         return self.view
     }
 
-    func bounds(for attachment: SubviewTextAttachment, textContainer: NSTextContainer?, proposedLineFragment lineFrag: CGRect, glyphPosition position: CGPoint) -> CGRect {
-        return attachment.bounds
+    public func bounds(for attachment: SubviewTextAttachment, textContainer: NSTextContainer?, proposedLineFragment lineFrag: CGRect, glyphPosition position: CGPoint) -> CGRect {
+        let width = textContainer!.size.width - textContainer!.lineFragmentPadding*2
+        return CGRect(x: 0, y: 0, width: width, height: view.intrinsicContentSize.height)
     }
 
 }
